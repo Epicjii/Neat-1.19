@@ -6,7 +6,7 @@ license="Creative Commons 3.0 BY-NC-SA"
 [[mods]]
 modId="neat"
 displayName="Neat"
-version="${version}"
+version="1.0"
 authors="Vazkii"
 description='''
 Minimalistic Functional Unit Plates for the modern Minecrafter
