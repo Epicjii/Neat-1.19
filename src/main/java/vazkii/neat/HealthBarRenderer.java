@@ -34,6 +34,7 @@ import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
@@ -197,7 +198,8 @@ public class HealthBarRenderer {
 			entity = ridingStack.pop();
 			boolean boss = !entity.canChangeDimensions();
 
-			String entityID = entity.getType().getRegistryName().toString();
+			String entityID = ForgeRegistries.ENTITIES.getKey(entity.getType()).toString();
+
 			if (NeatConfig.blacklist.contains(entityID))
 				continue;
 
@@ -303,6 +305,8 @@ public class HealthBarRenderer {
 			modelViewMatrix = poseStack.last().pose();
 			mc.font.drawInBatch(name, 0, 0, white, false, modelViewMatrix, buffer, false, black, light);
 
+			String entityID = ForgeRegistries.ENTITIES.getKey(entity.getType()).toString();
+
 			float s1 = 0.75F;
 			poseStack.pushPose();
 			{
@@ -326,7 +330,7 @@ public class HealthBarRenderer {
 				if (NeatConfig.showPercentage)
 					mc.font.drawInBatch(percStr, (int) (size / (textScale * s1)) - mc.font.width(percStr) / 2, h, white, false, modelViewMatrix, buffer, false, black, light);
 				if (NeatConfig.enableDebugInfo && mc.options.renderDebug)
-					mc.font.drawInBatch("ID: \"" + entity.getType().getRegistryName().toString() + "\"", 0, h + 16, white, false, modelViewMatrix, buffer, false, black, light);
+					mc.font.drawInBatch("ID: \"" + entityID + "\"", 0, h + 16, white, false, modelViewMatrix, buffer, false, black, light);
 			}
 			poseStack.popPose();
 
@@ -372,7 +376,7 @@ public class HealthBarRenderer {
 		poseStack.translate(vertexY - 16, vertexX - 16, 0.0D);
 		poseStack.scale(16.0F, 16.0F, 1.0F);
 		try {
-			ResourceLocation registryName = icon.getItem().getRegistryName();
+			ResourceLocation registryName = ForgeRegistries.ITEMS.getKey(icon.getItem());
 			Pair<ResourceLocation, ResourceLocation> pair = Pair.of(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(registryName.getNamespace(), "item/" + registryName.getPath()));
 			TextureAtlasSprite sprite = mc.getTextureAtlas(pair.getFirst()).apply(pair.getSecond());
 			PoseStack.Pose pose = poseStack.last();
