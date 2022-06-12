@@ -1,29 +1,25 @@
-*.mp3
-Thumbs.db
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
-## gradle
-/.gradle
-/build
-
-## ForgeGradle
-/run
-
-## eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
-/bin
-
-## intellij
-/out
-/.idea
-/atlassian-ide-plugin.xml
+# idea
+out
+*.ipr
+*.iws
 *.iml
+.idea
 
-## Private Stuffs
-/private.properties
+# gradle
+build
+.gradle
 
-## Jars
-*.jar
-!/gradle/wrapper/gradle-wrapper.jar
+# other
+eclipse
+run
+
+# Files from Forge MDK
+forge*changelog.txt
